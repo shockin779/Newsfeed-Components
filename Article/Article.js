@@ -85,6 +85,23 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Lambda School named Coding Camp of the Year in 2019',
+    date: 'Sep 10th, 2019',
+    firstParagraph: `Murf pratt ungow ungow chew foot, or scratch me there, elevator butt so stare at imaginary bug, yet chase ball of string stare
+          at the wall, play with food and get confused by dust yet wake up human for food at 4am. Ask for petting munch on tasty moths freak human out
+          make funny noise mow mow mow mow mow mow success now attack human cat slap dog in face you are a captive audience while sitting on the toilet,
+          pet me yet meow all night having their mate disturbing sleeping humans.`,
+        
+    secondParagraph: `Kitty power human clearly uses close to one life a night no one naps that long so i revive by standing on chestawaken! my left donut
+          is missing, as is my right or love you, then bite you for the door is opening! ow exciting oh, it's you, meh. Swipe at owner's legs eat too much
+          then proceed to regurgitate all over living room carpet while humans eat dinner for fish i must find my red catnip fishy fish or freak human out
+          make funny noise mow mow mow mow mow mow success now attack human so wake up human for food at 4am.`,
+
+    thirdParagraph: `Do i like standing on litter cuz i sits when i have spaces, my cat buddies have no litter i live in luxury cat life lounge in doorway
+          sweet beast brown cats with pink ears for pretend not to be evil. Chase dog then run away. Bathe private parts with tongue then lick owner's face
+          slap the dog because cats rule and eat and than sleep on your face the dog smells bad and kitty poochy, yet walk on keyboard for chase ball of string.`
   }
 ];
 
@@ -102,13 +119,64 @@ const data = [
   Hint: You will need to use createElement more than once here!
 
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
-
-  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-
-  Step 3: return the entire component.
-
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
-
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-
 */
+
+function createArticle(data) {
+
+  // create elements
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const articleP1 = document.createElement('p');
+  const articleP2 = document.createElement('p');
+  const articleP3 = document.createElement('p');
+  const articleButton = document.createElement('span');
+
+
+  // structure elements
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(articleP1);
+  article.appendChild(articleP2);
+  article.appendChild(articleP3);
+  article.appendChild(articleButton);
+
+
+  // set text in elements
+  articleTitle.textContent = data.title;
+  articleDate.textContent = data.date;
+  articleP1.textContent = data.firstParagraph;
+  articleP2.textContent = data.secondParagraph;
+  articleP3.textContent = data.thirdParagraph;
+  articleButton.textContent = 'Expand';
+
+  // apply styling
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  articleButton.classList.add('expandButton');
+
+  // Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+  articleButton.addEventListener('click', event => {
+    article.classList.toggle('article-open');
+
+    if(event.target.textContent === 'Expand') {
+      event.target.textContent = 'Collapse';
+    } else { event.target.textContent = 'Expand' };
+  });
+
+  // Step 3: return the entire component.
+  return article;
+
+}
+
+// grab the article section
+let articles = document.querySelector('.articles');
+
+
+// Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+data.forEach(article => {
+  articles.appendChild(createArticle(article));
+});
+
+
+ // Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
